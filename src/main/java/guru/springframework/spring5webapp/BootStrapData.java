@@ -10,18 +10,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class BootStrapData implements CommandLineRunner {
 
-    private PublisherRepository publisherRepository;
+    private final PublisherRepository publisherRepository;
+    private final AuthorsRepository authorsRepository;
 
-    public BootStrapData(PublisherRepository publisherRepository) {
+    public BootStrapData(PublisherRepository publisherRepository, AuthorsRepository authorsRepository) {
         this.publisherRepository = publisherRepository;
-    AuthorsRepository authorsRepository;
-
-    public BootStrapData(AuthorsRepository authorsRepository) {
         this.authorsRepository = authorsRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        System.out.println("Begin BootStrapData");
+
         Author author1 = new Author();
         author1.setName("Stephen King");
         authorsRepository.save(author1);
@@ -31,8 +31,6 @@ public class BootStrapData implements CommandLineRunner {
         authorsRepository.save(author2);
 
         System.out.println("Authors added: " + authorsRepository.count());
-
-        System.out.println("Begin BootStrapData");
 
         Publisher publisher = new Publisher();
         publisher.setAddressLine("Calle Augusto Figueroa");
